@@ -1,5 +1,5 @@
 require 'rack'
-require_relative 'lib/time_format_handler'
+require_relative 'lib/time_format'
 
 # Main App
 class App
@@ -26,7 +26,7 @@ class App
   end
 
   def time_format_response(request)
-    time_format = TimeFormatHandler.new(request.params['format'])
+    time_format = TimeFormat.new(request.params['format'])
 
     if time_format.valid?
       response(status: 200, body: time_format.result)

@@ -1,16 +1,11 @@
 # Time Format
-class TimeFormatHandler
+class TimeFormat
   TIME_FORMATS = { year: '%Y', month: '%m', day: '%d',
                    hour: '%H', minute: '%M', second: '%S' }.freeze
 
   def initialize(params)
     @params = params
     check_time_formats
-  end
-
-  def converted_time_format
-    format = @good_params.map { |f| TIME_FORMATS[f.to_sym] }
-    Time.now.strftime(format.join('-'))
   end
 
   def result
@@ -31,5 +26,10 @@ class TimeFormatHandler
     all_params   = @params.split(',')
     @bad_params  = all_params.reject { |f| TIME_FORMATS.key? f.to_sym }
     @good_params = all_params - @bad_params
+  end
+
+  def converted_time_format
+    format = @good_params.map { |f| TIME_FORMATS[f.to_sym] }
+    Time.now.strftime(format.join('-'))
   end
 end
