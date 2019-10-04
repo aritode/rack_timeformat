@@ -3,15 +3,14 @@ require_relative 'lib/time_format'
 
 # Main App
 class App
-  class InvalidRequestType < RuntimeError; end
-
   def call(env)
     request = Rack::Request.new(env)
-    raise InvalidRequestType unless request.get?
 
-    route_request(request)
-  rescue InvalidRequestType
-    method_not_allowed_response
+    if request.get?
+      route_request(request)
+    else
+      method_not_allowed_response
+    end
   end
 
   private
